@@ -1,6 +1,8 @@
 # Byte-compiled / optimized / DLL files
 
 #For personal use
+DOI/
+
 
 __pycache__/
 *.py[cod]
