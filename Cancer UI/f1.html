@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="mystyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <style>
 
   body {
@@ -20,7 +21,7 @@
   </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-
+<script src="my.js"></script>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -55,9 +56,11 @@
 
   <div class="upload-btn-wrapper">
   <button class="btn">Upload a file</button>
-  <input type="file" name="myfile" />
+  <input type="file" id="myfile" />
+  <div class="upload-btn-wrapper">
+  <button type='button' class="btn" onclick="predict()">Predict</button>
 </div>
-  <p>hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
+  <p id='two'>hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
   <p>hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
   <p>hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
 </div>

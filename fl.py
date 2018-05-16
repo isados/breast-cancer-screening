@@ -46,7 +46,7 @@ def add_channels(img):
 
 app = Flask(__name__)
 
-@app.route('/predict')
+@app.route('/predict/')
 def predict(path):
     img=preprocess_image(path)
     img=add_channels(img)
@@ -71,33 +71,6 @@ def answer_me(query):
         text=ans['ANSWER']
 
     return text
-
-@app.route('/ansrasa/<query>/<conversationid>')
-def answer_me_rasa(query,conversationid):
-#    borrlogs=query.split('\n')
-#    query=borrlogs[-1]
-##  borrlogs+=(msg.replace('\n','').replace('\r',''))+" "
-    global borrlogs
-    borrlogs+=query+" "
-    dict_=interpreter.parse(query)
-    intent=dict_['intent']['name']
-
-    confidence= dict_['intent']['confidence'] * 100
-    reply=agent.handle_message(query)
-    print(reply)
-    if reply:
-        dict_['reply'] = reply[0]
-    else:
-        dict_['reply'] = 'Thank You'
-
-    dict_['sentiment'] = analyzer.polarity_scores(borrlogs)['compound']
-    print(json.dumps(dict_, indent=4))
-
-    #print(agent.handle_message(query))
-    return json.dumps(dict_, indent=4)
-
-    #return 'Hello World!'
-
 
 
 if __name__ == '__main__':
