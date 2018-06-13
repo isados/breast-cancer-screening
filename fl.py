@@ -11,7 +11,7 @@ from keras.optimizers import Adam
 #from keras.callbacks import EarlyStopping
 #import keras.backend as K
 #from keras.applications.inception_v3 import InceptionV3
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import dicom as pdicom #Read mammogram images stored in DICOM files
 import cv2
@@ -51,27 +51,10 @@ def predict(path):
     img=preprocess_image(path)
     img=add_channels(img)
     pred = m.predict(img[np.newaxis])
-
-
-
-@app.route('/ans/<query>')
-def answer_me(query):
-    text=''
-    test_data_features=vectorizer.transform([query])
-    prob_array=lr.predict_proba(test_data_features)
-    print(prob_array)
-    if(np.max(prob_array) < 0.2):
-        text='Thanks for your Query.Our Customer Service Excecutive will get in touch with you.'
+    if pred>=0.5:
+        return "Malignant"
     else:
-        #es.get(index='demoindex', doc_type='edoo', id=0)
-        asd=es.search(index="demoindexnew", body={"query": { "match": {'QUESTION': query } } })
-        #print(asd)
-        asd1=asd.get('hits')
-        ans=asd1['hits'][0]['_source']
-        text=ans['ANSWER']
-
-    return text
-
+        return "Benign"
 
 if __name__ == '__main__':
     app.run()
