@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,render_template
 from sklearn.linear_model import LogisticRegression
 #import pickle
 import numpy as np
@@ -15,6 +15,7 @@ from keras.optimizers import Adam
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import dicom as pdicom #Read mammogram images stored in DICOM files
 import cv2
+app = Flask(__name__)
 
 def preprocess_image(path):
     img=pdicom.read_file(path,force=True)
@@ -44,7 +45,12 @@ def add_channels(img):
     img/=255          #  Pixel normalization (important)          #
     return img
 
-app = Flask(__name__)
+@app.route('/')
+def render_static():
+#    return render_template('%s.html' % page_name)
+    return render_template('f1.html')
+
+
 
 @app.route('/predict/')
 def predict(path):
