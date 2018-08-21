@@ -7,3 +7,11 @@ Project Cancer
 - So as part of EXPERIMENT 1: I will maintain a square shape (model demands only this or higher). So while resizing, it’s important that the images are not stretched to an abnormal shape; from a rectangular shape to a square one. Rescaling is the best option if stretching is a concern, but they won’t be square.
 - Thus the aspect ratio is field I will use to judge the square-ness of an image
 - A situation has arisen, I have to wrap the images in a tuple.
+
+Date: 22/08
+- The ImageDataCollector is not accepting the (image,label) tuple.
+- Must look at the FastAI documentation for that.
+- Not feeling so good about the dataset. It's not complete and may not work at all.
+- I have made no attempt at looking at the last model's shortcomings. I am starting from scratch.
+- Look into MAML or other meta learning techniques. Therein lies hidden potential.
+- But what do I know...
