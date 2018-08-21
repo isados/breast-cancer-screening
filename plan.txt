@@ -3,6 +3,7 @@ Project Cancer
 - The images are too varied and a few are mixed
 - I think I’ll just work with Calc cases
 - Remove large images and see the KDE plot of the length and width of the images
-- Modified the CSV to hold two more fields: VALID & AspectRatio. Where valid indicates whether the image can be used at all. (This is to avoid deleting the images, should the need for them arise). We have set the input size of the image to be 224x224; 
+- Modified the CSV to hold two more fields: VALID & AspectRatio. Where valid indicates whether the image can be used at all. (This is to avoid deleting the images, should the need for them arise). We have set the input size of the image to be 224x224;
 - So as part of EXPERIMENT 1: I will maintain a square shape (model demands only this or higher). So while resizing, it’s important that the images are not stretched to an abnormal shape; from a rectangular shape to a square one. Rescaling is the best option if stretching is a concern, but they won’t be square.
 - Thus the aspect ratio is field I will use to judge the square-ness of an image
+- A situation has arisen, I have to wrap the images in a tuple.
