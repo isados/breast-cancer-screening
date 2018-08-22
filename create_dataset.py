@@ -11,26 +11,41 @@ print('Finished importing packages...')
 df = pd.read_csv('main_woMM.csv',index_col='name')
 df1=df[(df.aspectratio<1.51) & (df.aspectratio>0.49) & (df['calc/mass']=='CALC')]
 
-# Return all images as a tuple (label,img_array)
+# Randomly shuffle the images
 df1=df1.sample(frac=1)
-img=df1.path
-img=img.apply(lambda x: return_image(x,resize=299).flatten())
+
+# Create another column in the Dataframe to hold the numpy arrays of each image located at their path
+df1.loc[:,'arr']=df1.path.apply(lambda x: return_image(x,resize=299).flatten())
 print('Finished resizing the images...\n')
-img=np.vstack(img.values).astype(np.uint16)
-print('...Converting them to a numpy array...\n')
-lbl=df1.label
-lbl=lbl.values.astype('S')
-print('...Doing the same with labels... Done!\n')
-print('\nTaking a break...')
-time.sleep(5)
+
+# Picking Benign cases
+dfb=df1.loc[df1.label=='BENIGN']
+img_b=np.vstack(dfb.arr.values)
+lbl_b=dfb.label.values.astype('S9')
+
+# Picking Malignant cases
+dfm=df1.loc[df1.label=='MALIGNANT']
+img_m=np.vstack(dfm.arr.values)
+lbl_m=dfm.label.values.astype('S9')
+
+print('Finished splitting Benign & Malignant cases...\n')
 
 # Write and Create a file
-print('\nSaving the dataset as an HDF5 file \n')
 import h5py
-rows=df1.shape[0]
-with h5py.File("images_1227.hdf5", "w") as f:
-    dset1 = f.create_dataset("images",shape=(rows,89401), dtype='uint16')
-    dset2 = f.create_dataset("labels",shape=(rows,), dtype='|S9')
-    dset1[...]=img
-    dset2[...]=lbl
-print('Done! For real this time!!')
+print('\nSaving the dataset as an HDF5 file...')
+file_name="images_1227.hdf5"
+with h5py.File(file_name, "w") as f:
+    # Create two groups or "subfolders" within the HDF5 file
+    bn=f.create_group('benign')
+    mg=f.create_group('malignant')
+
+    # Store each Benign & Malignant datasets within
+    dset = bn.create_dataset("images",data=img_b)
+    dset = bn.create_dataset("labels",data=lbl_b)
+    dset = mg.create_dataset("images",data=img_m)
+    dset = mg.create_dataset("labels",data=lbl_m)
+
+print('Done!!!\n')
+print('The file {} contains 2 subgroups: benign & malignant with 2 datasets under each...'.format(file_name))
+print("benign/ :\n\timages\n\tlabels")
+print("malignant/ :\n\timages\n\tlabels")
