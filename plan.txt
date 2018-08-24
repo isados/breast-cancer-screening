@@ -15,3 +15,36 @@ Date: 22/08
 - I have made no attempt at looking at the last model's shortcomings. I am starting from scratch.
 - Look into MAML or other meta learning techniques. Therein lies hidden potential.
 - But what do I know...
+
+Date: 24/08
+- Ive finally been able to load the model correctly
+- It is a Resnet32 model
+- I have to write down steps i need to take
+- according to lr_find(), i need to set alpha=0.005
+- No boost in accuracy with 2 epochs (1 cycle) followed by another cycle of 10 epochs
+- 1cy(2) 1cy(10)
+- Next ill try data augmentation with last layer and also unfreezing all the layers with differential lr rates.
+..... with precompute=False
+- Didnt work, there seems to be improvement in val_loss and the accuracy reflects the same;
+- hovering around 59~62%
+- Will also look into different forms of augmentation and try different techniques.
+- Wrap up for the day. Apparently setting the lr at a lower value kept loss minimal but only barely.
+- Max accuracy I could get was 67%, with a consistent value at 62%
+
+Date: 25/08
+- It's time I really thought about this project well.
+- I'm gonna write down possible ways I can see it working. To the best of my knowledge...
+
+- Strategy 1...
+- There are problems in IDing the images. Look at them closely
+- See what images are classified correctly and the models confidence on them.
+- Similarly, look at the incorrectly classified cases.
+- There is code for this available in the fastai repo to compare them side by side.
+- Modify it to fit my needs.
+- Look for possible irregularities
+- Note: How the hell will a model distinguish between the 2 kinds of cases when we cannot...
+- ... It is possible that a larger model is required (currently using Resnet34).
+
+- Strategy 2...
+- Look at sources where medical images have been used for a pretrained model.
+- Next try to implement it
