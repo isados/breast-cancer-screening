@@ -3,6 +3,7 @@ import pydicom
 import os
 import cv2
 import numpy as np
+import h5py
 def stacker(path):
     files=os.listdir(path)
     for x in range(0,len(files),10):
@@ -26,3 +27,24 @@ def return_trn_test_split(data,frac=1):
     # elif data is np.ndarray:
     upto=int(data.shape[0]*frac)
     return (data[:upto],data[upto:])
+
+def read_hdf5_cancerdata(path,file_labels=False,dtype_=None):
+    # Returns a tuple of images and their labels...
+    # file_labels = True, then return labels from the file itself
+    # file_labels = False, then generate the labels as...
+    # BENIGN : 0 , MALIGNANT : 1
+    with h5py.File(path, "r") as f:
+        b=f['benign']
+        m=f['malignant']
+        img_b=b['images'][...]
+        img_m=m['images'][...]
+        if dtype_ is not None:
+            img_b=img_b.astype(dtype_)
+            img_m=img_m.astype(dtype_)
+        if file_labels:
+            lbl_b=b['labels'][...]
+            lbl_m=m['labels'][...]
+        else:
+            lbl_b=np.zeros((img_b.shape[0],),dtype=np.int8)
+            lbl_m=np.ones((img_m.shape[0],),dtype=np.int8)
+    return (img_b,lbl_b,img_m,lbl_m)
