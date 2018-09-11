@@ -48,3 +48,20 @@ Date: 25/08
 - Strategy 2...
 - Look at sources where medical images have been used for a pretrained model.
 - Next try to implement it
+
+Date: 07/09
+- Strategy 3...
+- Break down the problem into its constituent parts. First we allow the model to interpret what a tumor is and then allow it to distinguish between the two types.
+- How to do this?
+- One way is to build a visual hierarchy of the problem similar to how convolutional neural newtorks are originally built.
+- We first, let's say, build 3-4 layers with the hope that they distinguish between normal and tumorous breast cases.
+- This step would involve cropping images from normal breast cases which would have to be coded in.
+- and later on build on these learned layers with another set of layers that distinguish between the two types of tumors.
+- This can reduce the problem the model has in trying to solve the problem
+- This is a hefty step and would take a lot of time.
+
+Date 11/09
+- Strategy 4...
+- We comb through multiple research papers, and try to pick out techniques we can use to implement this project.
+- I will prioritize this strategy over all the others
+- Since I will probably get actionable results from tried and tested methods then by doing it myself
